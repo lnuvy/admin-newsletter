@@ -27,22 +27,20 @@ const ProtectedScreen = (props: PropsWithChildren) => {
   if (isAllow) return <>{children}</>
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#E0E5F7]">
-      <Card className="w-[400px]">
-        <CardHeader>
-          <p className="">비밀번호 입력</p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <Input maxLength={6} name="password" type="password" value={password} onChange={handleChangeInput} />
+    <Card className="w-[400px]">
+      <CardHeader>
+        <p className="">비밀번호 입력</p>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Input maxLength={6} name="password" type="password" value={password} onChange={handleChangeInput} />
 
-            <Button className="" type="submit">
-              확인
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+          <Button className="" type="submit">
+            확인
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   )
 }
 

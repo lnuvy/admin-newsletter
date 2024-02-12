@@ -22,7 +22,7 @@ const ProtectedContextProvider = ContextProvider
 const RootContext = ({ children }: React.PropsWithChildren): JSX.Element => {
   const { Provider } = createContext(null)
 
-  const [isAllow, setIsAllow] = useState(localStorage.getItem(LOCAL_STORAGE_KEY.ACCESS_ALLOW) === "0224")
+  const [isAllow, setIsAllow] = useState(window?.localStorage?.getItem(LOCAL_STORAGE_KEY.ACCESS_ALLOW) === "0224")
 
   const [client] = useState(
     new QueryClient({
@@ -38,7 +38,9 @@ const RootContext = ({ children }: React.PropsWithChildren): JSX.Element => {
     <Provider value={null}>
       <QueryClientProvider client={client}>
         <ProtectedContextProvider isAllow={isAllow} setIsAllow={setIsAllow}>
-          <ProtectedScreen>{children}</ProtectedScreen>
+          <div className="flex min-h-screen items-center justify-center">
+            <ProtectedScreen>{children}</ProtectedScreen>
+          </div>
         </ProtectedContextProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
