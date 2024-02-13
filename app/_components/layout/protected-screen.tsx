@@ -1,9 +1,9 @@
+import React, { ChangeEvent, FormEvent, PropsWithChildren, useState } from "react"
 import { LOCAL_STORAGE_KEY } from "@/app/_constants/storage"
 import { useProtectedContext } from "@/app/_context/root-context"
-import React, { ChangeEvent, FormEvent, PropsWithChildren, useState } from "react"
+import { Button } from "../ui/button"
 import { Card, CardContent, CardHeader } from "../ui/card"
 import { Input } from "../ui/input"
-import { Button } from "../ui/button"
 
 const ProtectedScreen = (props: PropsWithChildren) => {
   const { children } = props

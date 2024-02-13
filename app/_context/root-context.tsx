@@ -1,8 +1,8 @@
 "use client"
 
+import { Dispatch, SetStateAction, createContext, useState } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { Dispatch, Profiler, ProfilerOnRenderCallback, SetStateAction, createContext, useEffect, useState } from "react"
 import { createDynamicContext } from "./create-dynamic-context"
 import ProtectedScreen from "../_components/layout/protected-screen"
 import { LOCAL_STORAGE_KEY } from "../_constants/storage"

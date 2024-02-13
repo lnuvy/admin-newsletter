@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["Parens", "tailwindcss", "tanstack"]
+  "cSpell.words": ["callees", "classname", "Parens", "tailwindcss", "tanstack"],
+  "eslint.codeActionsOnSave.mode": "all",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
 }

@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { Inter as FontSans } from "next/font/google"
 
-import "./globals.css"
-import { cn } from "./_lib/utils"
 import RootContext from "./_context/root-context"
+import { cn } from "./_lib/utils"
+import "./globals.css"
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={cn("min-h-screen bg-background font-sans antialiased bg-[#E0E5F7]", fontSans.variable)}>
+      <body className={cn("min-h-screen bg-[#E0E5F7] bg-background font-sans antialiased", fontSans.variable)}>
         <RootContext>{children}</RootContext>
       </body>
     </html>

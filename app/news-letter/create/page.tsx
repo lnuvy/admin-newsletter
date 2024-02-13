@@ -1,5 +1,7 @@
 "use client"
 
+import React from "react"
+import { useForm } from "react-hook-form"
 import WidthWrapper from "@/app/_components/layout/width-wrapper"
 import { Button } from "@/app/_components/ui/button"
 import { Checkbox } from "@/app/_components/ui/checkbox"
@@ -7,8 +9,6 @@ import { Form, FormField, FormItem } from "@/app/_components/ui/form"
 import { Input } from "@/app/_components/ui/input"
 import { Label } from "@/app/_components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/_components/ui/select"
-import React from "react"
-import { useForm } from "react-hook-form"
 
 const NewsLetterCreatePage = () => {
   const methods = useForm()
@@ -24,9 +24,9 @@ const NewsLetterCreatePage = () => {
           <FormField
             name="title"
             render={({ field }) => (
-              <FormItem className="flex gap-2 items-center">
+              <FormItem className="flex items-center gap-2">
                 <Label className="min-w-[150px] text-[18px] font-semibold">
-                  뉴스레터명 <span className="text-[#2141E5]">*</span>
+                  뉴스레터명<span className="text-[#2141E5]">*</span>
                 </Label>
                 <Input className="w-[400px]" placeholder="뉴스레터명을 입력해주세요" {...field} />
               </FormItem>
@@ -36,9 +36,9 @@ const NewsLetterCreatePage = () => {
           <FormField
             name="publisher"
             render={({ field }) => (
-              <FormItem className="flex gap-2 items-center">
+              <FormItem className="flex items-center gap-2">
                 <Label className="min-w-[150px] text-[18px] font-semibold">
-                  발행인 <span className="text-[#2141E5]">*</span>
+                  발행인<span className="text-[#2141E5]">*</span>
                 </Label>
                 <Input className="w-[400px]" placeholder="발행인을 입력해주세요" {...field} />
               </FormItem>
@@ -48,9 +48,9 @@ const NewsLetterCreatePage = () => {
           <FormField
             name="publisher"
             render={({ field }) => (
-              <FormItem className="flex gap-2 items-center">
+              <FormItem className="flex items-center gap-2">
                 <Label className="min-w-[150px] text-[18px] font-semibold">
-                  소개글 <span className="text-[#2141E5]">*</span>
+                  소개글<span className="text-[#2141E5]">*</span>
                 </Label>
                 <Input className="" placeholder="소개글을 입력해 주세요(띄어쓰기 포함 53자 이내)" {...field} />
               </FormItem>
@@ -67,18 +67,19 @@ const NewsLetterCreatePage = () => {
                   <Label className="min-w-[150px] text-[18px] font-semibold">메인 이미지</Label>
 
                   <Label htmlFor="thumbnail" className="">
-                    <div className="w-[250px] aspect-video bg-gray-100 rounded-[12px]"></div>
+                    <div className="aspect-video w-[250px] rounded-[12px] bg-gray-100"></div>
                   </Label>
                   <Input id="thumbnail" type="file" className="hidden" placeholder="썸네일을 입력해주세요" {...field} />
                 </FormItem>
               )}
             />
 
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex w-full flex-col gap-4">
               <FormField
                 name="period"
-                render={({ field }) => (
-                  <FormItem className="flex gap-2 items-center">
+                // render={({ field }) => (
+                render={() => (
+                  <FormItem className="flex items-center gap-2">
                     <Label className="min-w-[150px] text-[18px] font-semibold">발행 주기</Label>
                     <Select>
                       <SelectTrigger>
@@ -96,8 +97,9 @@ const NewsLetterCreatePage = () => {
 
               <FormField
                 name="branch"
-                render={({ field }) => (
-                  <FormItem className="flex gap-2 items-center">
+                // render={({ field }) => (
+                render={() => (
+                  <FormItem className="flex items-center gap-2">
                     <Label className="min-w-[150px] text-[18px] font-semibold">분야 키워드</Label>
                     <Select>
                       <SelectTrigger>
@@ -115,8 +117,9 @@ const NewsLetterCreatePage = () => {
 
               <FormField
                 name="career"
-                render={({ field }) => (
-                  <FormItem className="flex gap-2 items-center">
+                // render={({ field }) => (
+                render={() => (
+                  <FormItem className="flex items-center gap-2">
                     <Label className="min-w-[150px] text-[18px] font-semibold">직무 키워드</Label>
                     <Select>
                       <SelectTrigger>
@@ -134,8 +137,9 @@ const NewsLetterCreatePage = () => {
 
               <FormField
                 name="purpose"
-                render={({ field }) => (
-                  <FormItem className="flex gap-2 items-center">
+                // render={({ field }) => (
+                render={() => (
+                  <FormItem className="flex items-center gap-2">
                     <Label className="min-w-[150px] text-[18px] font-semibold">목적 키워드</Label>
                     <Select>
                       <SelectTrigger>
@@ -156,14 +160,14 @@ const NewsLetterCreatePage = () => {
           <FormField
             name="fee"
             render={({ field }) => (
-              <FormItem className="flex gap-2 items-center">
+              <FormItem className="flex items-center gap-2">
                 <Label className="min-w-[150px] text-[18px] font-semibold">구독비</Label>
 
                 <FormField
                   name="items"
                   render={() => {
                     return (
-                      <FormItem className="flex gap-2 items-center">
+                      <FormItem className="flex items-center gap-2">
                         <Checkbox {...field} />
                         <Label className="text-[18px] font-semibold">무료</Label>
                       </FormItem>
@@ -176,7 +180,7 @@ const NewsLetterCreatePage = () => {
                   name="items"
                   render={() => {
                     return (
-                      <FormItem className="flex gap-2 items-center">
+                      <FormItem className="flex items-center gap-2">
                         <Checkbox {...field} />
                         <Label className="text-[18px] font-semibold">유료</Label>
                       </FormItem>
@@ -190,7 +194,7 @@ const NewsLetterCreatePage = () => {
           <FormField
             name="link"
             render={({ field }) => (
-              <FormItem className="flex gap-2 items-center">
+              <FormItem className="flex items-center gap-2">
                 <Label className="min-w-[150px] text-[18px] font-semibold">구독하기 링크</Label>
                 <Input className="" placeholder="URL을 입력해주세요" {...field} />
               </FormItem>
