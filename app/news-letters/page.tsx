@@ -1,16 +1,16 @@
 "use client"
 
 import React from "react"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { usePublisherList } from "./queries"
 import WidthWrapper from "../_components/layout/width-wrapper"
 import { Button } from "../_components/ui/button"
 
 const NewsLettersPage = () => {
   const router = useRouter()
-  // const {} = useQuery({
-  //   queryKey: "",
-  //   queryFn: () => {},
-  // })
+
+  const { data, observerRef } = usePublisherList()
 
   return (
     <WidthWrapper>
@@ -27,22 +27,27 @@ const NewsLettersPage = () => {
       <div className="h-12" />
 
       <div className="flex flex-col gap-3">
-        {[...new Array(10)].map((_, index) => (
-          <div key={index} className="flex items-center gap-2">
+        {data?.map((publisher, i) => (
+          <div key={publisher.id} className="flex items-center gap-2">
             <div className="flex w-full items-center bg-[#E0E5F7] px-5 py-4">
-              <p className="w-10 text-[18px] font-semibold">{100 - index}</p>
+              <p className="w-10 text-[18px] font-semibold">{i + 1}</p>
 
-              <div className="ml-2 size-12 bg-white">
-                {/* 여기 이미지 */}
-                {/* <Image /> */}
+              <div className="ml-2 size-12 overflow-hidden bg-white">
+                <Image
+                  className="size-full object-cover"
+                  src={publisher.thumbnail}
+                  alt="썸네일"
+                  width={48}
+                  height={48}
+                />
               </div>
 
               <div className="ml-4 flex flex-col gap-1">
                 <div className="flex items-center gap-1">
-                  <p className="text-[18px] font-semibold">아티클명</p>
-                  <span className="text-[14px] font-medium text-[#A2ABC7]">퍼블리셔 명</span>
+                  <p className="text-[18px] font-semibold">{publisher.name}</p>
+                  <span className="text-[14px] font-medium text-[#A2ABC7]">{publisher.publisher_main}</span>
                 </div>
-                <p className="text-[16px]">디스크립션란</p>
+                <p className="text-[16px]">{publisher.description}</p>
               </div>
             </div>
 
@@ -51,6 +56,8 @@ const NewsLettersPage = () => {
             <Button className="!h-full bg-[#6D768E]">삭제</Button>
           </div>
         ))}
+
+        <div ref={observerRef} />
       </div>
     </WidthWrapper>
   )

@@ -9,13 +9,13 @@ import { Button } from "../_components/ui/button"
 const KeywordsPage = () => {
   const router = useRouter()
 
-  const { data } = useKeywordGroup()
+  const { data: groupList } = useKeywordGroup()
 
   return (
     <WidthWrapper>
       <div className="flex items-center justify-between">
         <h1 className="text-[30px] font-bold">
-          키워드 관리 <span className="text-[#2141E5]">{100}</span>
+          키워드 관리 <span className="text-[#2141E5]">{groupList.length}</span>
         </h1>
 
         <Button className="" onClick={() => router.push("/news-letter/create")}>
@@ -23,7 +23,7 @@ const KeywordsPage = () => {
         </Button>
       </div>
 
-      {JSON.stringify(data)}
+      {JSON.stringify(groupList)}
     </WidthWrapper>
   )
 }

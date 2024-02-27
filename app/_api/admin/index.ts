@@ -1,3 +1,4 @@
+import { AdminNewsLetterResponse } from "./admin.type"
 import api from ".."
 
 const adminApi = {
@@ -30,6 +31,19 @@ const adminApi = {
    */
   putAdminKeywordGroup: async (id: number, payload: { name: string; is_enabled: boolean }) => {
     const { data } = await api.put(`/admin/keyword-group/${id}`, payload)
+    return data
+  },
+
+  /** ------------------------------------------------------------------------------
+   * 
+   * publisher
+   * 
+   ------------------------------------------------------------------------------ */
+  /**
+   * publisher 목록 가져오기
+   */
+  getAdminPublisher: async (params: any) => {
+    const { data } = await api.get<AdminNewsLetterResponse>("/admin/publisher", { params })
     return data
   },
 }
