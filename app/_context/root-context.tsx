@@ -22,8 +22,6 @@ const ProtectedContextProvider = ContextProvider
 const RootContext = ({ children }: React.PropsWithChildren): JSX.Element => {
   const { Provider } = createContext(null)
 
-  const [isAllow, setIsAllow] = useState(window?.localStorage?.getItem(LOCAL_STORAGE_KEY.ACCESS_ALLOW) === "0224")
-
   const [client] = useState(
     new QueryClient({
       defaultOptions: {
@@ -32,6 +30,9 @@ const RootContext = ({ children }: React.PropsWithChildren): JSX.Element => {
         },
       },
     }),
+  )
+  const [isAllow, setIsAllow] = useState(
+    window?.localStorage?.getItem(LOCAL_STORAGE_KEY.ACCESS_ALLOW) === "0224" || false,
   )
 
   return (

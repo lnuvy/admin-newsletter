@@ -6,9 +6,11 @@ import WidthWrapper from "../_components/layout/width-wrapper"
 import { Button } from "../_components/ui/button"
 
 const NewsLettersPage = () => {
-  // const {} = useQuery({})
-
   const router = useRouter()
+  // const {} = useQuery({
+  //   queryKey: "",
+  //   queryFn: () => {},
+  // })
 
   return (
     <WidthWrapper>
