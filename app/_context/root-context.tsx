@@ -27,6 +27,8 @@ const RootContext = ({ children }: React.PropsWithChildren): JSX.Element => {
       defaultOptions: {
         queries: {
           refetchOnWindowFocus: false,
+          refetchOnMount: false,
+          retry: 1,
         },
       },
     }),

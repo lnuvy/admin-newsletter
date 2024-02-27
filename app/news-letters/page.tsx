@@ -52,7 +52,9 @@ const NewsLettersPage = () => {
             </div>
 
             {/* edit, delete */}
-            <Button className="!h-full bg-[#637BF4]">연필</Button>
+            <Button className="!h-full bg-[#637BF4]" onClick={() => router.push(`/news-letter/${publisher.id}`)}>
+              연필
+            </Button>
             <Button className="!h-full bg-[#6D768E]">삭제</Button>
           </div>
         ))}
