@@ -1,3 +1,6 @@
+/**
+ * @deprecated 분리예정
+ */
 const adminQueryKey = {
   keywordGroup: {
     all: () => ["admin", "keywordGroup"],

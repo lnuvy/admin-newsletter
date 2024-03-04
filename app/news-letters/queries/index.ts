@@ -2,9 +2,12 @@ import adminApi from "@/app/_api/admin"
 import { AdminNewsLetterResponse } from "@/app/_api/admin/admin.type"
 import { useInfiniteData } from "@/app/_hooks/use-infinite-data"
 
-export const usePublisherList = () => {
+export const usePublisherList = (params: any) => {
   return useInfiniteData<AdminNewsLetterResponse>({
-    queryKey: [""],
-    queryFn: ({ pageParam = 1 }) => adminApi.getAdminPublisherList({ page: pageParam }),
+    queryKey: ["publisher-list", params],
+    queryFn: ({ pageParam = 1 }) => {
+      console.log("pageParam", pageParam)
+      return adminApi.getAdminPublisherList({ page: pageParam, ...params })
+    },
   })
 }

@@ -9,7 +9,8 @@ export const METHOD = {
 }
 
 const api = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_BASE_API_URL}`,
+  // baseURL: `${process.env.NEXT_PUBLIC_BASE_API_URL}`,
+  baseURL: `/`,
 })
 
 api.interceptors.request.use(

@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { createDynamicContext } from "./create-dynamic-context"
 import ProtectedScreen from "../_components/layout/protected-screen"
 import { LOCAL_STORAGE_KEY } from "../_constants/storage"
+import useIsServerSide from "../_hooks/use-is-server-side"
 
 interface useProtectedContextProps {
   isAllow: boolean
@@ -33,8 +34,10 @@ const RootContext = ({ children }: React.PropsWithChildren): JSX.Element => {
       },
     }),
   )
+  const { isServerSide } = useIsServerSide()
+
   const [isAllow, setIsAllow] = useState(
-    window?.localStorage?.getItem(LOCAL_STORAGE_KEY.ACCESS_ALLOW) === "0224" || false,
+    isServerSide ? true : window?.localStorage?.getItem(LOCAL_STORAGE_KEY.ACCESS_ALLOW) === "0224" || false,
   )
 
   return (

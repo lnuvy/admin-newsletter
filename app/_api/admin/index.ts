@@ -1,12 +1,16 @@
 import { AdminNewsLetterResponse, AdminPublisherPayload } from "./admin.type"
 import api from ".."
+import { AdminKeywordGroupResponse } from "../keyword.type"
 
+/**
+ * @deprecated 분리예정 + fetch 사용예정
+ */
 const adminApi = {
   /**
    * keyword-group 목록 가져오기
    */
   getAdminKeywordGroup: async () => {
-    const { data } = await api.get("/admin/keyword-group")
+    const { data } = await api.get<AdminKeywordGroupResponse[]>("/admin/keyword-group")
     return data
   },
 

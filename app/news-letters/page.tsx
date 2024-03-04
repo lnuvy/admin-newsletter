@@ -10,7 +10,7 @@ import { Button } from "../_components/ui/button"
 const NewsLettersPage = () => {
   const router = useRouter()
 
-  const { data, observerRef } = usePublisherList()
+  const { data, observerRef } = usePublisherList({})
 
   return (
     <WidthWrapper>

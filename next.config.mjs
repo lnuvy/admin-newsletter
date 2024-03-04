@@ -18,6 +18,25 @@ const nextConfig = {
       },
     ],
   },
+
+  async rewrites() {
+    // proxy
+    return [
+      {
+        source: "/:path*",
+        destination: `http://127.0.0.1:3000/:path*`, //컨플루언스의 API주소
+      },
+    ]
+  },
+
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/api/:path*",
+  //       destination: "http://127.0.0.1:3000/:path*",
+  //     },
+  //   ]
+  // },
 }
 
 export default nextConfig
