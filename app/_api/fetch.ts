@@ -9,7 +9,7 @@ export const METHOD = {
 }
 
 // 로컬환경 proxy 사용중
-const BASE_URL = process.env.NEXT_PUBLIC_WEB_URL
+const BASE_URL = `${process.env.NEXT_PUBLIC_WEB_URL}/api`
 
 const api = async (url: string, options?: HttpOptions) => {
   return fetch(`${BASE_URL}${url}`, {

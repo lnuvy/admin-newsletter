@@ -23,7 +23,7 @@ const nextConfig = {
     // proxy
     return [
       {
-        source: "/:path*",
+        source: "/api/:path*",
         destination: `http://127.0.0.1:3000/:path*`, //컨플루언스의 API주소
       },
     ]

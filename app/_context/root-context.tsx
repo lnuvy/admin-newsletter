@@ -1,8 +1,6 @@
 "use client"
 
 import { Dispatch, SetStateAction, createContext, useState } from "react"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { createDynamicContext } from "./create-dynamic-context"
 import ProtectedScreen from "../_components/layout/protected-screen"
 import { LOCAL_STORAGE_KEY } from "../_constants/storage"
@@ -23,17 +21,6 @@ const ProtectedContextProvider = ContextProvider
 const RootContext = ({ children }: React.PropsWithChildren): JSX.Element => {
   const { Provider } = createContext(null)
 
-  const [client] = useState(
-    new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
-          refetchOnMount: false,
-          retry: 1,
-        },
-      },
-    }),
-  )
   const { isServerSide } = useIsServerSide()
 
   const [isAllow, setIsAllow] = useState(
@@ -42,14 +29,11 @@ const RootContext = ({ children }: React.PropsWithChildren): JSX.Element => {
 
   return (
     <Provider value={null}>
-      <QueryClientProvider client={client}>
-        <ProtectedContextProvider isAllow={isAllow} setIsAllow={setIsAllow}>
-          <div className="flex min-h-screen items-center justify-center">
-            <ProtectedScreen>{children}</ProtectedScreen>
-          </div>
-        </ProtectedContextProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      <ProtectedContextProvider isAllow={isAllow} setIsAllow={setIsAllow}>
+        <div className="flex min-h-screen items-center justify-center">
+          <ProtectedScreen>{children}</ProtectedScreen>
+        </div>
+      </ProtectedContextProvider>
     </Provider>
   )
 }
