@@ -1,6 +1,6 @@
 import React from "react"
-import { revalidatePath, revalidateTag } from "next/cache"
-import { redirect } from "next/navigation"
+import { revalidateTag } from "next/cache"
+import { createKeyword } from "@/app/_actions"
 import keywordKey from "@/app/_api/fetch-key/keyword"
 import keywordApi from "@/app/_api/keyword"
 import WidthWrapper from "@/app/_components/layout/width-wrapper"
@@ -22,45 +22,9 @@ const KeywordDetailPage = async ({ params, searchParams: _searchParams }: NextPa
   const list = await keywordApi.getAdminKeywordGroup()
   const current = list.find((item) => item.id === groupId)
 
-  // 키워드 그룹삭제
-  const deleteKeywordGroup = async () => {
+  const createAction = async (formData: FormData) => {
     "use server"
-    await keywordApi.deleteAdminKeywordGroup(groupId)
-    revalidateTag(keywordKey.list())
-    revalidatePath(`/keyword/${groupId}`)
-    redirect("/keywords")
-  }
-
-  // 키워드 추가
-  const createKeyword = async (formData: FormData) => {
-    "use server"
-    const payload = {
-      name: formData.get("keyword_name") as string,
-      is_enabled: formData.get("is_enabled") === "on" ? true : false,
-    }
-
-    await keywordApi.postAdminKeyword({ groupId, payload })
-
-    revalidateTag(keywordKey.detail(groupId))
-  }
-
-  // 키워드 수정
-  const putKeyword = async (id: number, formData: FormData) => {
-    "use server"
-    const payload = {
-      name: formData.get("keyword_name") as string,
-      is_enabled: formData.get("is_enabled") === "on" ? true : false,
-    }
-
-    await keywordApi.putAdminKeyword({ groupId, keywordId: id, payload })
-
-    revalidateTag(keywordKey.detail(groupId))
-  }
-
-  // 키워드 삭제
-  const deleteKeyword = async (id: number) => {
-    "use server"
-    await keywordApi.deleteAdminKeyword({ groupId, keywordId: id })
+    createKeyword(groupId, formData)
     revalidateTag(keywordKey.detail(groupId))
   }
 
@@ -72,27 +36,21 @@ const KeywordDetailPage = async ({ params, searchParams: _searchParams }: NextPa
           {/* <span className="text-[#2141E5]">{groupList?.length}</span> */}
         </h1>
 
-        <form action={deleteKeywordGroup} method="delete">
-          <input type="hidden" name="groupId" value={groupId} />
-          <Button variant="destructive" className="" onClick={deleteKeywordGroup}>
-            삭제
-          </Button>
-        </form>
+        <Button variant="destructive" className="" type="button">
+          그룹 삭제
+        </Button>
       </div>
 
       <div className="h-12" />
 
       {keywords?.map((keyword) => {
-        return (
-          <KeywordEditable key={keyword.id} keyword={keyword} deleteAction={deleteKeyword} putAction={putKeyword} />
-        )
+        return <KeywordEditable key={keyword.id} keyword={keyword} />
       })}
 
       <div className="h-12" />
 
       {/* 추가 */}
-
-      <form action={createKeyword} className="flex flex-wrap items-center gap-4">
+      <form action={createAction} className="flex flex-wrap items-center gap-4">
         <input type="text" name="keyword_name" className="h-[40px] w-[300px] rounded-md border border-gray-300 px-4" />
 
         <div className="flex gap-2">

@@ -42,8 +42,7 @@ export const useInfiniteData = <T>({ queryKey, queryFn, refOptions }: UseInfinit
     ...refOptions,
   })
 
-  const dataList = data?.pages?.flatMap((page) => page) ?? []
-  console.log("🚀 ~ useInfiniteData ~ dataList:", dataList)
+  const dataList = data?.pages?.flatMap((page: any) => page) ?? []
 
   const totalCount = 0
 

@@ -6,7 +6,6 @@ export const usePublisherList = (params: any) => {
   return useInfiniteData<AdminNewsLetterResponse>({
     queryKey: ["publisher-list", params],
     queryFn: ({ pageParam = 1 }) => {
-      console.log("pageParam", pageParam)
       return adminApi.getAdminPublisherList({ page: pageParam, ...params })
     },
   })
