@@ -1,3 +1,10 @@
+import { AdminPaginationParams } from "./common.type"
+
+export interface AdminPublisherParams extends AdminPaginationParams {
+  name?: string
+  is_enabled?: boolean
+}
+
 export interface AdminNewsLetterResponse {
   id: string
   thumbnail: string

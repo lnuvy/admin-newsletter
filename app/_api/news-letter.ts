@@ -1,6 +1,7 @@
 import api, { METHOD } from "./fetch"
 import newsLetterKey from "./fetch-key/news-letter"
-import { AdminNewsLetterResponse, AdminPublisherPayload } from "./news-letter.type"
+import { AdminNewsLetterResponse, AdminPublisherParams, AdminPublisherPayload } from "./news-letter.type"
+import { queryString } from "../_utils/query-string"
 
 const newsLetterApi = {
   /** ------------------------------------------------------------------------------
@@ -11,9 +12,8 @@ const newsLetterApi = {
   /**
    * publisher 목록 가져오기
    */
-  getAdminPublisherList: async (params: any) => {
-    const queryString = new URLSearchParams(params).toString()
-    const data = await api(`/admin/publisher?${queryString}`, {
+  getAdminPublisherList: async (params: AdminPublisherParams) => {
+    const data = await api(`/admin/publisher?${queryString(params)}`, {
       next: { tags: [newsLetterKey.publisher()] },
     })
     return data as AdminNewsLetterResponse[]
