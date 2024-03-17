@@ -3,7 +3,10 @@
 import { revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import keywordKey from "../_api/fetch-key/keyword"
+import newsLetterKey from "../_api/fetch-key/news-letter"
 import keywordApi from "../_api/keyword"
+import newsLetterApi from "../_api/news-letter"
+import { AdminPublisherPayload } from "../_api/news-letter.type"
 
 /**
  * 키워드 그룹생성
@@ -79,4 +82,41 @@ export const deleteKeyword = async (groupId: number, formData: FormData) => {
   const keywordId = Number(formData.get("keywordId"))
   await keywordApi.deleteAdminKeyword({ groupId, keywordId })
   revalidateTag(keywordKey.detail(groupId))
+}
+
+/** ------------------------------------------------------------------------------
+ * 
+ * 퍼블리셔
+ * 
+ ------------------------------------------------------------------------------ */
+/**
+ * 퍼블리셔 수정
+ */
+export const putPublisher = async (formData: FormData) => {
+  "use server"
+  const payload: AdminPublisherPayload = {
+    name: "",
+    description: "",
+    subscriber: 0,
+    thumbnail: "",
+    url_subscribe: "",
+    publisher_main: "",
+    publisher_spec: "",
+    is_enabled: false,
+  }
+
+  formData.forEach((value, key) => {
+    if (key === "publisherId") {
+    } else {
+      payload[key as keyof AdminPublisherPayload] = value
+    }
+  })
+
+  await newsLetterApi.putAdminPublisher(formData.get("publisherId") as string, payload)
+  // revalidatePath("/news-letter/[publisherId]", "page")
+  revalidateTag(newsLetterKey.publisherDetail(formData.get("publisherId") as string))
+
+  return {
+    status: "success",
+  }
 }

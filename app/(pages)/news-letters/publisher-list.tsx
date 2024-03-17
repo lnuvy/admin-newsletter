@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react"
 import { useInView } from "react-intersection-observer"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import newsLetterApi from "@/app/_api/news-letter"
 import { AdminNewsLetterResponse } from "@/app/_api/news-letter.type"
 import { Button } from "@/app/_components/ui/button"
@@ -12,6 +13,7 @@ interface PublisherListProps {
 
 const PublisherList = (props: PublisherListProps) => {
   const { initialValues } = props
+  const router = useRouter()
 
   const [page, setPage] = useState(1)
   const [publishers, setPublishers] = useState<AdminNewsLetterResponse[]>(initialValues)
@@ -32,7 +34,11 @@ const PublisherList = (props: PublisherListProps) => {
   return (
     <div className="flex flex-col gap-3">
       {publishers?.map((publisher, i) => (
-        <div key={publisher.id} className="flex items-center gap-2">
+        <div
+          key={publisher.id}
+          className="flex items-center gap-2"
+          onClick={() => router.push(`/news-letter/${publisher.id}`)}
+        >
           <div className="flex w-full items-center bg-[#E0E5F7] px-5 py-4">
             <p className="w-10 text-[18px] font-semibold">{i + 1}</p>
 

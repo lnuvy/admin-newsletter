@@ -1,6 +1,7 @@
 "use client"
 
 import { Dispatch, SetStateAction, createContext, useState } from "react"
+import { Toaster } from "react-hot-toast"
 import { createDynamicContext } from "./create-dynamic-context"
 import ProtectedScreen from "../_components/layout/protected-screen"
 import { LOCAL_STORAGE_KEY } from "../_constants/storage"
@@ -29,6 +30,9 @@ const RootContext = ({ children }: React.PropsWithChildren): JSX.Element => {
 
   return (
     <Provider value={null}>
+      <Toaster
+      //  containerStyle={{ top: 80 }}
+      />
       <ProtectedContextProvider isAllow={isAllow} setIsAllow={setIsAllow}>
         <div className="flex min-h-screen items-center justify-center">
           <ProtectedScreen>{children}</ProtectedScreen>

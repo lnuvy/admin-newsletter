@@ -14,7 +14,7 @@ export interface AdminNewsLetterResponse {
   url_subscribe: string
   publisher_main: string
   publisher_spec: string
-  is_enabled: boolean
+  is_enabled: number
   created_at: string
 }
 

@@ -1,25 +1,34 @@
-"use client"
-
 import React from "react"
-import { useQuery } from "@tanstack/react-query"
-import { useParams } from "next/navigation"
-import adminApi from "@/app/_api/admin"
+import { putPublisher } from "@/app/_actions"
+import newsLetterApi from "@/app/_api/news-letter"
 import WidthWrapper from "@/app/_components/layout/width-wrapper"
+import { NextPageProps } from "@/app/_types/next"
+import { dateFormat } from "@/app/_utils/date-format"
+import DetailTemplates from "./detail-templates"
 
-const PublisherDetailPage = () => {
-  const { publisherId } = useParams()
-  const { data } = useQuery({
-    queryKey: ["detail", publisherId],
-    queryFn: () => adminApi.getAdminPublisher(publisherId as string),
-  })
+interface PublisherDetailPageParams {
+  publisherId: string
+}
+
+const PublisherDetailPage = async ({ params, searchParams }: NextPageProps<PublisherDetailPageParams>) => {
+  const { publisherId } = params
+
+  const publisher = await newsLetterApi.getAdminPublisher(publisherId)
+
+  const keywords = await newsLetterApi.getAdminPublisherKeyword(publisherId)
 
   return (
     <WidthWrapper>
       <div className="flex items-center justify-between">
-        <h1 className="text-[30px] font-bold">{data?.name}</h1>
+        <h1 className="text-[30px] font-bold">
+          {publisher?.name}
+          <span className="ml-2 text-[16px]">{dateFormat(publisher?.created_at)}</span>
+        </h1>
       </div>
 
-      {JSON.stringify(data)}
+      <div className="h-12" />
+
+      <DetailTemplates action={putPublisher} initialData={publisher} />
     </WidthWrapper>
   )
 }

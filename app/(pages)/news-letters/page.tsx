@@ -1,8 +1,7 @@
 import React from "react"
-import Image from "next/image"
 import Link from "next/link"
 import newsLetterApi from "@/app/_api/news-letter"
-import InfiniteList from "@/app/_components/helpers/infinite-list"
+import PublisherList from "./publisher-list"
 import WidthWrapper from "../../_components/layout/width-wrapper"
 import { Button } from "../../_components/ui/button"
 
@@ -25,8 +24,8 @@ const NewsLettersPage = async () => {
       <div className="h-12" />
 
       <div className="flex flex-col gap-3">
-        {/* <PublisherList initialValues={publisherList} /> */}
-        <InfiniteList initialData={publisherList} apiFunction={newsLetterApi.getAdminPublisherList}>
+        <PublisherList initialValues={publisherList} />
+        {/* <InfiniteList initialData={publisherList} apiFunction={newsLetterApi.getAdminPublisherList}>
           {(data, i) => {
             return (
               <div key={data.id} className="flex items-center gap-2">
@@ -62,7 +61,7 @@ const NewsLettersPage = async () => {
               </div>
             )
           }}
-        </InfiniteList>
+        </InfiniteList> */}
       </div>
     </WidthWrapper>
   )
