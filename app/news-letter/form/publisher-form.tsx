@@ -7,7 +7,6 @@ import { FormField, FormItem } from "@/app/_components/ui/form"
 import { Input } from "@/app/_components/ui/input"
 import { Label } from "@/app/_components/ui/label"
 import { Switch } from "@/app/_components/ui/switch"
-import KeywordsForm from "./keywords-form"
 
 interface PublisherFormProps {
   isEdit?: boolean
@@ -129,8 +128,6 @@ const PublisherForm = (props: PublisherFormProps) => {
             )
           }}
         />
-
-        <div className="flex w-full flex-col gap-4">{isEdit && <KeywordsForm />}</div>
       </div>
 
       <FormField

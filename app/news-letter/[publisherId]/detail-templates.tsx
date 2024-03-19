@@ -4,25 +4,26 @@ import React from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { useParams } from "next/navigation"
-import { AdminNewsLetterResponse } from "@/app/_api/news-letter.type"
 import ClientForm from "@/app/_components/helpers/client-form"
 import { Button } from "@/app/_components/ui/button"
+import { useInitialDataContext } from "./context/initial-data-context"
 import PublisherForm from "../form/publisher-form"
 
 interface DetailTemplatesProps {
   action: any
-  initialData: AdminNewsLetterResponse
 }
 
 const DetailTemplates = (props: DetailTemplatesProps) => {
-  const { action, initialData } = props
+  const { action } = props
+
+  const { publisher } = useInitialDataContext()
 
   const { publisherId } = useParams()
 
   const methods = useForm({
     defaultValues: {
-      ...initialData,
-      is_enabled: initialData.is_enabled == 1 ? true : false,
+      ...publisher,
+      is_enabled: publisher.is_enabled == 1 ? true : false,
     },
   })
 
