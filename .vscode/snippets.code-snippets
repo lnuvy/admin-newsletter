@@ -172,5 +172,12 @@
       ""
     ],
     "description": "create dynamic context "
+  },
+  "clo": {
+    "prefix": "clo",
+    "body": [
+      "console.log(`${1:data}`, ${1:data})"
+    ],
+    "description": "clo"
   }
 }

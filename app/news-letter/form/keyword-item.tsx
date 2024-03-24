@@ -3,23 +3,24 @@
 import React, { useEffect, useState } from "react"
 import { useFormContext } from "react-hook-form"
 import keywordApi from "@/app/_api/keyword"
-import { AdminKeywordResponse } from "@/app/_api/keyword.type"
+import { AdminKeywordGroupResponse, AdminKeywordResponse } from "@/app/_api/keyword.type"
 import { FormField, FormItem } from "@/app/_components/ui/form"
 import { Label } from "@/app/_components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/_components/ui/select"
+import { useInitialDataContext } from "../[publisherId]/context/initial-data-context"
 
 interface KeywordItemProps {
-  keyword: AdminKeywordResponse
+  keywordGroup: AdminKeywordGroupResponse
 }
 
 const KeywordItem = (props: KeywordItemProps) => {
-  const { keyword } = props
+  const { keywordGroup } = props
 
   const [data, setData] = useState<AdminKeywordResponse[]>([])
 
   const { control, watch } = useFormContext()
   const fetchData = async () => {
-    const keywordList = await keywordApi.getAdminKeyword(keyword.id)
+    const keywordList = await keywordApi.getAdminKeyword(keywordGroup.id)
     setData(keywordList)
   }
 
@@ -27,16 +28,19 @@ const KeywordItem = (props: KeywordItemProps) => {
     fetchData()
   }, [])
 
+  const { keyword } = useInitialDataContext()
+
   return (
     <FormField
-      key={keyword.id}
-      name={keyword.name}
+      key={keywordGroup.id}
+      name={keywordGroup.name}
       control={control}
       render={({ field }) => {
+        const currentKeyword = keyword?.find((keyword) => keyword.keyword_group_id === keywordGroup.id)
         return (
           <FormItem className="flex items-center gap-2">
-            <Label className="min-w-[150px] text-[18px] font-semibold">{keyword.name}</Label>
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
+            <Label className="min-w-[150px] text-[18px] font-semibold">{keywordGroup.name}</Label>
+            <Select onValueChange={field.onChange} defaultValue={`${currentKeyword?.id}`}>
               <SelectTrigger>
                 <SelectValue placeholder="선택해주세요" />
               </SelectTrigger>

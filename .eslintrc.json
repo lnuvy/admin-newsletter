@@ -4,7 +4,7 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["next", "next/core-web-vitals", "eslint-config-next", "plugin:tailwindcss/recommended"],
+  "extends": ["next", "next/core-web-vitals", "eslint-config-next", "plugin:prettier/recommended", "plugin:tailwindcss/recommended"],
   "plugins": ["tailwindcss", "import", "unused-imports"],
 
   "settings": {
