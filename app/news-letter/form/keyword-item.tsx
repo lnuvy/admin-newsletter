@@ -1,7 +1,9 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useTransition } from "react"
 import { useFormContext } from "react-hook-form"
+import { useParams } from "next/navigation"
+import { putPublisherKeyword } from "@/app/_actions"
 import keywordApi from "@/app/_api/keyword"
 import { AdminKeywordGroupResponse, AdminKeywordResponse } from "@/app/_api/keyword.type"
 import { FormField, FormItem } from "@/app/_components/ui/form"
@@ -14,11 +16,14 @@ interface KeywordItemProps {
 }
 
 const KeywordItem = (props: KeywordItemProps) => {
+  const { publisherId } = useParams()
   const { keywordGroup } = props
 
   const [data, setData] = useState<AdminKeywordResponse[]>([])
 
-  const { control, watch } = useFormContext()
+  const [pending, startTransition] = useTransition()
+
+  const { control, getValues } = useFormContext()
   const fetchData = async () => {
     const keywordList = await keywordApi.getAdminKeyword(keywordGroup.id)
     setData(keywordList)
@@ -33,14 +38,25 @@ const KeywordItem = (props: KeywordItemProps) => {
   return (
     <FormField
       key={keywordGroup.id}
-      name={keywordGroup.name}
+      name={`${keywordGroup.id}`}
       control={control}
       render={({ field }) => {
         const currentKeyword = keyword?.find((keyword) => keyword.keyword_group_id === keywordGroup.id)
         return (
           <FormItem className="flex items-center gap-2">
             <Label className="min-w-[150px] text-[18px] font-semibold">{keywordGroup.name}</Label>
-            <Select onValueChange={field.onChange} defaultValue={`${currentKeyword?.id}`}>
+            <Select
+              onValueChange={async (e) => {
+                field.onChange(e)
+                startTransition(async () => {
+                  await putPublisherKeyword(publisherId as string, {
+                    keywordGroupId: keywordGroup.id,
+                    keywordId: Number(e),
+                  })
+                })
+              }}
+              defaultValue={`${currentKeyword?.id}`}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="선택해주세요" />
               </SelectTrigger>

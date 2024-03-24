@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidateTag } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import keywordKey from "../_api/fetch-key/keyword"
 import newsLetterKey from "../_api/fetch-key/news-letter"
@@ -119,4 +119,28 @@ export const putPublisher = async (formData: FormData) => {
   return {
     status: "success",
   }
+}
+
+/**
+ * 퍼블리셔 키워드 수정 (not formData)
+ */
+export const putPublisherKeyword = async (
+  publisherId: string,
+  {
+    keywordGroupId,
+    keywordId,
+  }: {
+    keywordGroupId: number
+    keywordId: number
+  },
+) => {
+  "use server"
+
+  const payload = {
+    keyword_group_id: keywordGroupId,
+    keyword_id: keywordId,
+  }
+
+  await newsLetterApi.putAdminPublisherKeyword(publisherId, payload)
+  revalidatePath(`/news-letter/[publisherId]`, "page")
 }

@@ -1,7 +1,12 @@
 import api, { METHOD } from "./fetch"
 import newsLetterKey from "./fetch-key/news-letter"
 import { AdminKeywordResponse } from "./keyword.type"
-import { AdminNewsLetterResponse, AdminPublisherParams, AdminPublisherPayload } from "./news-letter.type"
+import {
+  AdminNewsLetterResponse,
+  AdminPublisherIdKeywordPayload,
+  AdminPublisherParams,
+  AdminPublisherPayload,
+} from "./news-letter.type"
 import { queryString } from "../_utils/query-string"
 
 const newsLetterApi = {
@@ -69,24 +74,13 @@ const newsLetterApi = {
     const data = await api(`/admin/publisher/${id}/keyword`)
     return data as AdminKeywordResponse[]
   },
-
   /**
-   * publisher 에 keyword 추가
+   * publisher 에 keyword 가 없으면 추가/있으면 수정/null은 삭제
    */
-  postAdminPublisherKeyword: async (id: string, payload: { keyword_group_id: number; keyword_id: number }) => {
+  putAdminPublisherKeyword: async (id: string, payload: AdminPublisherIdKeywordPayload) => {
     const data = await api(`/admin/publisher/${id}/keyword`, {
-      method: METHOD.POST,
+      method: METHOD.PUT,
       data: payload,
-    })
-    return data
-  },
-
-  /**
-   * publisher 에 keyword 삭제
-   */
-  deleteAdminPublisherKeyword: async (id: string, keywordId: number) => {
-    const data = await api(`/admin/publisher/${id}/keyword/${keywordId}`, {
-      method: METHOD.DELETE,
     })
     return data
   },

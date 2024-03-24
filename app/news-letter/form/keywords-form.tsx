@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { AdminKeywordGroupResponse, AdminKeywordResponse } from "@/app/_api/keyword.type"
+import { AdminKeywordResponse } from "@/app/_api/keyword.type"
 import KeywordItem from "./keyword-item"
 import { useInitialDataContext } from "../[publisherId]/context/initial-data-context"
 
@@ -17,15 +17,18 @@ const KeywordsForm = (props: KeywordsFormProps) => {
   const { initialData } = props
   const [data] = useState<AdminKeywordResponse[]>(initialData)
 
-  const {keywordGroup} = useInitialDataContext()
-  // const defaultValues = data.reduce((acc, keyword) => {
-  //   return {
-  //     ...acc,
-  //     [keyword.name]: keyword.id,
-  //   }
-  // }, {})
+  const { keywordGroup } = useInitialDataContext()
 
-  const methods = useForm({})
+  const defaultValues = keywordGroup?.reduce((acc, keywordGroup) => {
+    return {
+      ...acc,
+      [keywordGroup.id]: initialData?.find((keyword) => keyword.keyword_group_id === keywordGroup.id)?.id + "",
+    }
+  }, {})
+
+  const methods = useForm({
+    defaultValues,
+  })
 
   if (!data) return <></>
 

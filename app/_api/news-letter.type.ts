@@ -30,3 +30,8 @@ export interface AdminPublisherPayload {
   publisher_spec: string
   is_enabled: boolean
 }
+
+export interface AdminPublisherIdKeywordPayload {
+  keyword_group_id: number
+  keyword_id: number | null
+}

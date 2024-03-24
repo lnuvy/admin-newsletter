@@ -67,9 +67,7 @@ const KeywordEditable = (props: KeywordEditableProps) => {
 
   return (
     <div key={keyword.id} className="grid grid-cols-4 items-center gap-2 border-b border-gray-200 py-2">
-      <p className="text-lg">
-        {keyword.id} {keyword.name}
-      </p>
+      <p className="text-lg">{keyword.name}</p>
 
       <div
         className={cn("w-fit px-1.5 py-[2px] text-sm", {
